@@ -109,10 +109,10 @@ public class DividendsDataQM {
 
 								String dd_date = dv.has("date") ? dv.getString("date") : null;
 								String declared = dv.has("declared") ? dv.getString("declared") : null;
-								String amount = dv.has("amount") ? dv.getString("amount") : null;
+								String amount = dv.has("amount") ? dv.getString("amount") : "0.0";
 								String payable = dv.has("payable") ? dv.getString("payable") : null;
-								String divtype = dv.has("divtype") ? dv.getString("divtype") : null;
-								String frequency = dv.has("frequency") ? dv.getString("frequency") : null;
+								String divtype = dv.has("divtype") ? dv.getString("divtype") : "D";
+								String frequency = dv.has("frequency") ? dv.getString("frequency") : "U";
 								String currency = dv.has("currency") ? dv.getString("currency") : null;
 								String divflag = dv.has("divflag") ? dv.getString("divflag") : null;
 								String indicatedrate = dv.has("indicatedrate") ? dv.getString("indicatedrate") : null;

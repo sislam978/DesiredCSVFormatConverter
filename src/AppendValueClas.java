@@ -1,6 +1,9 @@
 import java.lang.reflect.Field;
 import java.math.RoundingMode;
 import java.text.DecimalFormat;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 
 public class AppendValueClas {
     /**
@@ -50,7 +53,44 @@ public class AppendValueClas {
 	   DecimalFormat df = new DecimalFormat("#.#####");
 	   df.setRoundingMode(RoundingMode.CEILING);
 	   
-	   System.out.println(df.format(Double.parseDouble("0.554688")).toString());
+	   //System.out.println(df.format(Double.parseDouble("0.554688")).toString());
+	   
+	   SimpleDateFormat input_format = new SimpleDateFormat("MM/DD/YY");
+		// Date date= new SimpleDateFormat(dateToformat);
+		String formatedDate = null;
+		// String toformat="12/31/2017";
+
+		Date date;
+		try {
+			date = input_format.parse("05/01/18");
+			SimpleDateFormat output_format = new SimpleDateFormat("yyyy-MM-dd");
+			formatedDate = output_format.format(date);
+			 System.out.println("printed date: "+formatedDate);
+		} catch (ParseException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
    }
+   
+	public static String dateFormation(String toformat) {
+
+		SimpleDateFormat input_format = new SimpleDateFormat("mm/dd/yy");
+		// Date date= new SimpleDateFormat(dateToformat);
+		String formatedDate = null;
+		// String toformat="12/31/2017";
+
+		Date date;
+		try {
+			date = input_format.parse(toformat);
+			SimpleDateFormat output_format = new SimpleDateFormat("yyyy-MM-dd");
+			formatedDate = output_format.format(date);
+			// System.out.println("printed date: "+formatedDate);
+		} catch (ParseException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+
+		return formatedDate;
+	}
 
 }
