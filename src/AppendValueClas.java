@@ -1,4 +1,6 @@
 import java.lang.reflect.Field;
+import java.math.RoundingMode;
+import java.text.DecimalFormat;
 
 public class AppendValueClas {
     /**
@@ -40,6 +42,15 @@ public class AppendValueClas {
            }
 
        }
+   }
+   
+   public static void main(String [] args){
+	   String value="0.554688";
+	   //String vv=String.format("%.5g%n", value);
+	   DecimalFormat df = new DecimalFormat("#.#####");
+	   df.setRoundingMode(RoundingMode.CEILING);
+	   
+	   System.out.println(df.format(Double.parseDouble("0.554688")).toString());
    }
 
 }
