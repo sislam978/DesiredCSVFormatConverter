@@ -71,6 +71,7 @@ public class YahooPriceDataScraping {
 			// fetch the document over HTTP
 			Document doc = null;
 			if (show_option.equals("") && freq.equals("") && start_date.equals("") && end_date.equals("")) {
+				
 				doc = Jsoup.connect("https://finance.yahoo.com/quote/%5EVIX/history?p=%5EVIX").get();
 			} else {
 				/*
@@ -138,7 +139,7 @@ public class YahooPriceDataScraping {
 			Elements table_tag = doc.select("table");
 			// get all links in page
 			Elements links = doc.select("a[href]");
-
+			System.out.println("table size: "+table_tag.size());
 			ArrayList<VolatilityIndex> downServers = new ArrayList<VolatilityIndex>();
 			Element table = doc.select("table").get(0); // select the first
 														// table.
@@ -162,7 +163,7 @@ public class YahooPriceDataScraping {
 				downServers.add(vi);
 
 			}
-			InsertDataIntoVolatilityTable(downServers);
+			//InsertDataIntoVolatilityTable(downServers);
 
 		} catch (IOException e) {
 			e.printStackTrace();
