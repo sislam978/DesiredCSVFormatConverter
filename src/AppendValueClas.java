@@ -1,5 +1,6 @@
 import java.lang.reflect.Field;
 import java.math.RoundingMode;
+import java.text.DateFormat;
 import java.text.DecimalFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
@@ -47,7 +48,7 @@ public class AppendValueClas {
        }
    }
    
-   public static void main(String [] args){
+   public static void main(String [] args) throws Exception{
 	   String value="0.554688";
 	   //String vv=String.format("%.5g%n", value);
 	   DecimalFormat df = new DecimalFormat("#.#####");
@@ -61,9 +62,19 @@ public class AppendValueClas {
 		// String toformat="12/31/2017";
 
 		Date date;
+		Date cur_date=new Date();
+		DateFormat dateFormat = new SimpleDateFormat("MMMM d, yy");
+		//Date cc_date=dateFormat.parse("05/22/2018");
+		
+		long end_dates = cur_date.getTime()/1000 + 86400;
+		String dd=stringTodate("May 21, 2018","MMMM d, yy","yyyy-MM-dd");
+		System.out.println(dd);
 		try {
 			date = input_format.parse("05/01/18");
+			
 			SimpleDateFormat output_format = new SimpleDateFormat("yyyy-MM-dd");
+		
+			
 			formatedDate = output_format.format(date);
 			 System.out.println("printed date: "+formatedDate);
 		} catch (ParseException e) {
@@ -71,6 +82,27 @@ public class AppendValueClas {
 			e.printStackTrace();
 		}
    }
+   
+	public static String stringTodate(String date, String formatter, String format) throws Exception {
+		// System.out.println( "String "+ date+ " formatter "+ formatter+"
+		// format "+ format);
+		SimpleDateFormat desiredFormat = new SimpleDateFormat(format);
+		SimpleDateFormat dateFormatter = new SimpleDateFormat(formatter);
+
+		Date newdate = null;
+		String newDateString = null;
+		try {
+			newdate = dateFormatter.parse(date);
+			newDateString = desiredFormat.format(newdate);
+			// System.out.println(newDateString);
+		} catch (ParseException e) {
+			e.printStackTrace();
+			throw e;
+		}
+		// System.out.println("newDateString : "+newDateString);
+		return newDateString;
+
+	}
    
 	public static String dateFormation(String toformat) {
 
@@ -80,6 +112,7 @@ public class AppendValueClas {
 		// String toformat="12/31/2017";
 
 		Date date;
+		
 		try {
 			date = input_format.parse(toformat);
 			SimpleDateFormat output_format = new SimpleDateFormat("yyyy-MM-dd");
