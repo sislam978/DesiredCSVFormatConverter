@@ -12,6 +12,7 @@ public class TreasureyYieldCurveRate {
 	public Double Yr10;
 	public Double Yr20;
 	public Double Yr30;
+	
 	public String getDates() {
 		return dates;
 	}

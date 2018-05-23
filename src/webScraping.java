@@ -100,30 +100,31 @@ public class webScraping {
 				if (cols.size() == 12) {
 					// System.out.println(cols.get(0).text());
 					String dates = stringTodate(cols.get(0).text(),"MM/dd/yy","yyyy-MM-dd");
-					String Mo1 = cols.get(1).text();
-					String Mo3 = cols.get(2).text();
-					String Mo6 = cols.get(3).text();
-					String Yr1 = cols.get(4).text();
-					String Yr2 = cols.get(5).text();
-					String Yr3 = cols.get(6).text();
-					String Yr5 = cols.get(7).text();
-					String Yr7 = cols.get(8).text();
-					String Yr10 = cols.get(9).text();
-					String Yr20 = cols.get(10).text();
-					String Yr30 = cols.get(11).text();
+					Double Mo1 = (cols.get(1).text().toString().equals("N/A"))? null:Double.parseDouble(cols.get(1).text());
+					Double Mo3 = (cols.get(2).text().toString().equals("N/A"))? null:Double.parseDouble(cols.get(2).text());
+					Double Mo6 = (cols.get(3).text().toString().equals("N/A"))? null:Double.parseDouble(cols.get(3).text());
+					Double Yr1 = (cols.get(4).text().toString().equals("N/A"))? null:Double.parseDouble(cols.get(4).text());
+					Double Yr2 = (cols.get(5).text().toString().equals("N/A"))? null:Double.parseDouble(cols.get(5).text());
+					Double Yr3 = (cols.get(6).text().toString().equals("N/A"))? null:Double.parseDouble(cols.get(6).text());
+					Double Yr5 = (cols.get(7).text().toString().equals("N/A"))? null:Double.parseDouble(cols.get(7).text());
+					Double Yr7 = (cols.get(8).text().toString().equals("N/A"))? null:Double.parseDouble(cols.get(8).text());
+					Double Yr10 = (cols.get(9).text().toString().equals("N/A"))? null:Double.parseDouble(cols.get(9).text());
+					Double Yr20 = (cols.get(10).text().toString().equals("N/A"))? null:Double.parseDouble(cols.get(10).text());
+					Double Yr30 = (cols.get(11).text().toString().equals("N/A"))? null:Double.parseDouble(cols.get(11).text());
 
 					tycr.setDates(dates);
-					tycr.setMo1(Double.parseDouble(Mo1));
-					tycr.setMo3(Double.parseDouble(Mo3));
-					tycr.setMo6(Double.parseDouble(Mo6));
-					tycr.setYr1(Double.parseDouble(Yr1));
-					tycr.setYr2(Double.parseDouble(Yr2));
-					tycr.setYr3(Double.parseDouble(Yr3));
-					tycr.setYr5(Double.parseDouble(Yr5));
-					tycr.setYr7(Double.parseDouble(Yr7));
-					tycr.setYr10(Double.parseDouble(Yr10));
-					tycr.setYr20(Double.parseDouble(Yr20));
-					tycr.setYr30(Double.parseDouble(Yr30));
+					
+					tycr.setMo1(Mo1);
+					tycr.setMo3(Mo3);
+					tycr.setMo6(Mo6);
+					tycr.setYr1(Yr1);
+					tycr.setYr2(Yr2);
+					tycr.setYr3(Yr3);
+					tycr.setYr5(Yr5);
+					tycr.setYr7(Yr7);
+					tycr.setYr10(Yr10);
+					tycr.setYr20(Yr20);
+					tycr.setYr30(Yr30);
 
 					downServers.add(tycr);
 				}
@@ -166,18 +167,72 @@ public class webScraping {
 								+ "Yr5,Yr7,Yr10,Yr20,Yr30) values (?,?,?,?,?,?,?,?,?,?,?,?)");
 
 				pSLocal.setString(1, downServers.get(i).getDates());
-				pSLocal.setDouble(2, downServers.get(i).getMo1());
-				
-				pSLocal.setDouble(3, downServers.get(i).getMo3());
-				pSLocal.setDouble(4, downServers.get(i).getMo6());
-				pSLocal.setDouble(5, downServers.get(i).getYr1());
-				pSLocal.setDouble(6, downServers.get(i).getYr2());
-				pSLocal.setDouble(7, downServers.get(i).getYr3());
-				pSLocal.setDouble(8, downServers.get(i).getYr5());
-				pSLocal.setDouble(9, downServers.get(i).getYr7());
-				pSLocal.setDouble(10, downServers.get(i).getYr10());
-				pSLocal.setDouble(11, downServers.get(i).getYr20());
-				pSLocal.setDouble(12, downServers.get(i).getYr30());
+				if(downServers.get(i).getMo1()==null){
+					pSLocal.setNull(2, java.sql.Types.DOUBLE);
+				}
+				else{
+					pSLocal.setDouble(2, downServers.get(i).getMo1());
+				}
+				if(downServers.get(i).getMo3()==null){
+					pSLocal.setNull(3, java.sql.Types.DOUBLE);
+				}
+				else{
+					pSLocal.setDouble(3, downServers.get(i).getMo3());
+				}
+				if(downServers.get(i).getMo6()==null){
+					pSLocal.setNull(4, java.sql.Types.DOUBLE);
+				}
+				else{
+					pSLocal.setDouble(4, downServers.get(i).getMo6());
+				}
+				if(downServers.get(i).getYr1()==null){
+					pSLocal.setNull(5, java.sql.Types.DOUBLE);
+				}
+				else{
+					pSLocal.setDouble(5, downServers.get(i).getYr1());
+				}
+				if(downServers.get(i).getYr2()==null){
+					pSLocal.setNull(6, java.sql.Types.DOUBLE);
+				}
+				else{
+					pSLocal.setDouble(6, downServers.get(i).getYr2());
+				}
+				if(downServers.get(i).getYr3()==null){
+					pSLocal.setNull(7, java.sql.Types.DOUBLE);
+				}
+				else{
+					pSLocal.setDouble(7, downServers.get(i).getYr3());
+				}
+				if(downServers.get(i).getYr5()==null){
+					pSLocal.setNull(8, java.sql.Types.DOUBLE);
+				}
+				else{
+					pSLocal.setDouble(8, downServers.get(i).getYr5());
+				}
+				if(downServers.get(i).getYr7()==null){
+					pSLocal.setNull(9, java.sql.Types.DOUBLE);
+				}
+				else{
+					pSLocal.setDouble(9, downServers.get(i).getYr7());
+				}
+				if(downServers.get(i).getYr10()==null){
+					pSLocal.setNull(10, java.sql.Types.DOUBLE);
+				}
+				else{
+					pSLocal.setDouble(10, downServers.get(i).getYr10());
+				}
+				if(downServers.get(i).getYr20()==null){
+					pSLocal.setNull(11, java.sql.Types.DOUBLE);
+				}
+				else{
+					pSLocal.setDouble(11, downServers.get(i).getYr20());
+				}
+				if(downServers.get(i).getYr30()==null){
+					pSLocal.setNull(12, java.sql.Types.DOUBLE);
+				}
+				else{
+					pSLocal.setDouble(12, downServers.get(i).getYr30());
+				}
 				
 				
 

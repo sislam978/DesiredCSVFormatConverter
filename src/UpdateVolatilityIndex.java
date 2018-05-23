@@ -72,6 +72,7 @@ public class UpdateVolatilityIndex {
 				continue;
 			}
 			double returnValue=adjClose/prev_value;
+			returnValue-=1;
 			String query_str="UPDATE volatility_index SET return_val='"+returnValue+"' WHERE history_date='"+dates+"'";
 			Statement update_statement=con.createStatement();
 			update_statement.executeUpdate(query_str);
