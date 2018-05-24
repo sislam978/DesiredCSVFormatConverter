@@ -32,7 +32,7 @@ public class PortfolioTimeSeriesManager {
 	private static Connection connectLocal() throws ClassNotFoundException, SQLException {
 		Class.forName("com.mysql.jdbc.Driver");
 		Connection con = (Connection) DriverManager
-				.getConnection("jdbc:mysql://localhost:3306/new_database?rewriteBatchedStatements=true", "root", "");
+				.getConnection("jdbc:mysql://localhost:3306/kkrdb?rewriteBatchedStatements=true", "root", "");
 		con.setAutoCommit(true);
 		return con;
 	}
@@ -95,13 +95,14 @@ public class PortfolioTimeSeriesManager {
 			 * insert satement create
 			 */
 			PreparedStatement pSLocal = conKkr.prepareStatement(
-					"insert into  user_saved_portfolio_timeseries (user_saved_portfolio_id,timeseries_date,returns) values (?,?,?)");
+					"insert into  user_saved_portfolio_timeseries (user_saved_portfolio_id,timeseries_date,returns,Yield) values (?,?,?,?)");
 			for (int j = 0; j < Yield_return.size(); j++) {
 
 				pSLocal.setInt(1, YieldIndex.get(j));
 				pSLocal.setString(2, rsL.getString(2));
 				pSLocal.setDouble(3, Yield_return.get(j));
-
+				pSLocal.setDouble(4, YieldValues.get(j));
+				
 				pSLocal.execute();
 				System.out.println(mm++);
 			}
@@ -126,7 +127,7 @@ public class PortfolioTimeSeriesManager {
 		end.add(Calendar.DATE, 1);
 
 		PreparedStatement pSLocal = conKkr.prepareStatement(
-				"insert into  user_saved_portfolio_timeseries (user_saved_portfolio_id,timeseries_date,returns) values (?,?,?)");
+				"insert into  user_saved_portfolio_timeseries (user_saved_portfolio_id,timeseries_date,returns,Yield) values (?,?,?,?)");
 		int mm = 0;
 		for (Date date = start.getTime(); start.before(end); start.add(Calendar.DATE, 1), date = start.getTime()) {
 			String desired_date = input_format.format(date);
@@ -139,6 +140,7 @@ public class PortfolioTimeSeriesManager {
 				pSLocal.setInt(1, entry.getKey());
 				pSLocal.setString(2, desired_date);
 				pSLocal.setDouble(3, return_val);
+				pSLocal.setDouble(4, entry.getValue());
 
 				pSLocal.execute();
 				System.out.println(mm++);
@@ -190,7 +192,7 @@ public class PortfolioTimeSeriesManager {
 		String start_date = in.nextLine();
 		System.out.println("enter the end date:");
 		String end_date = in.nextLine();
-		// insertData(start_date, end_date);
+	    
 		YieldIndex.add(Y1);
 		YieldIndex.add(Y2);
 		YieldIndex.add(Y3);
@@ -204,10 +206,10 @@ public class PortfolioTimeSeriesManager {
 		percentIndexMap.put(132, 10);
 		percentIndexMap.put(133, 15);
 		percentIndexMap.put(134, 20);
-
-		//updatePortfolioTimeSeries(start_date, end_date);
+		//insertData(start_date, end_date);
+		updatePortfolioTimeSeries(start_date, end_date);
 		//inserDataForPercents(start_date, end_date);
-		updatePortfolioTimeSeriePercents(start_date,end_date);
+		//updatePortfolioTimeSeriePercents(start_date,end_date);
 	}
 	
 	public static void updatePortfolioTimeSeriePercents(String start_date, String end_date)
